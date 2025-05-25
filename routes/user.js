@@ -2,11 +2,11 @@ require('dotenv').config(); // Load .env
 
 const express = require("express");
 const UserRoute = express.Router();
-const { z, late } = require("zod");
+const { z } = require("zod");
 const jwt = require("jsonwebtoken");
 const { userModel } = require("../db");
 const bcrypt = require("bcrypt");
-const { use } = require('react');
+const { error } = require('zod/v4/locales/ar.js');
 
 
 UserRoute.post("/signup",async function(req,res){
@@ -17,14 +17,15 @@ UserRoute.post("/signup",async function(req,res){
                                   .regex(/[0-9]/)
                                   .regex(/[^A-Za-z0-9]/,),
        firstName:z.string(),
-       lastName:z.string()
+       lastName:z.string(),
    })
 
    const parsed = validedData.safeParse(req.body)
 
    if(!parsed.success){
+    console.log(parsed.error.errors)
         res.json({
-            msg:"incorext format",
+            msg:"incorrect format",
             error:parsed.error
         })
         return
@@ -80,7 +81,7 @@ UserRoute.post("/signin",async function(req,res){
     const { email, password} = req.body;
 
      try{
-        const user = userModel.findOne({
+        const user = await userModel.findOne({
             email:email
         })
 
@@ -101,15 +102,14 @@ UserRoute.post("/signin",async function(req,res){
           })
        }else{
         res.status(403).json({
-            message:"Incorrect credits"
+            msg:"Incorrect credentials"
         })
        }
      }catch(error){
-
-    console.error("Error during user signup:", error);
+    console.error("Error during user signin:", error);
 
     res.status(500).json({
-        message: "An error occurred during signin",
+        message: "Server error during signin",
         error: error.message
     });
    }

@@ -20,5 +20,5 @@ TodoRoute.delete("/todo",function(req,res){
 })
 
 module.exports = {
-    UserRoute
+    TodoRoute
 }
