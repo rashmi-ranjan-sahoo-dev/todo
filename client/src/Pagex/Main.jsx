@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
-import Signup from '../components/Authentication/Signup'
-import Signin from '../components/Authentication/Signin'
 import { Outlet } from 'react-router-dom'
+import Logout from '../components/Authentication/logout'
+import LoginName from '../components/Authentication/LoginName'
 
 const Main = () => {
 
@@ -20,9 +20,12 @@ const Main = () => {
   }, [isDarkMode]);
 
   return (
-    <div className={isDarkMode ?"min-h-screen   dark:bg-gray-900  transition-all duration-300" : "min-h-screen   bg-white  transition-all duration-300"}>
+    <div 
+    className={isDarkMode ?"min-h-screen   dark:bg-gray-900  transition-all duration-300" : "min-h-screen   bg-white  transition-all duration-300"}>
       <Header sendDataToApp = {recevedData} />
        <Outlet/>
+       <Logout />
+       <LoginName/>
     </div>
   )
 }

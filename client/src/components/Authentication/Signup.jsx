@@ -44,7 +44,7 @@ const [lastName,setLastName] = useState('')
     <div 
     className='flex items-center justify-center min-h-screen w-full bg-blue-600'>
       <form 
-      className='sm:w-[30%] w-50 sm:h-110 sm:border-2 p-5 sm:p-10 text-center bg-white border-none rounded-3xl'
+      className='sm:w-[30%] w-50 sm:h-125 sm:border-2 p-5 sm:p-10 text-center bg-white border-none rounded-3xl'
       onSubmit={handleSignup}
       >
         <h1 

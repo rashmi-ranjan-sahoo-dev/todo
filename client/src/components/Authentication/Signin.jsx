@@ -15,6 +15,10 @@ const Signin = () => {
 
     const handelSignin = async (e) =>{
       e.preventDefault();
+      
+      const stringEmail = email.toString();
+      const firstChar = stringEmail[0].toUpperCase();
+      navigate("/", { state: { firstChar: firstChar } });
     
     try{
       const response = await axios.post('http://localhost:3000/api/v1/users/signin',{
