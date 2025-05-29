@@ -1,8 +1,11 @@
-import React from 'react';
+import {useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './context/AuthProvider';
 
-const Logout = ({setIsLoggedIn}) => {
+const Logout = () => {
   const navigate = useNavigate();
+  
+  const {setIsLoggedIn} = useContext(AuthContext)
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -14,7 +17,7 @@ const Logout = ({setIsLoggedIn}) => {
   return (
     <button
       onClick={handleLogout}
-      className="bg-red-600 text-white text-sm  sm:p-2 rounded-xl shadow"
+      className="bg-red-600 text-white sm:text-[13px] text-[8px] sm:p-2 p-1 rounded-full shadow"
     >
       Logout
     </button>

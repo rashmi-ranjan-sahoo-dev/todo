@@ -1,5 +1,5 @@
 import React from 'react'
-import Main from './Pagex/main'
+import Main from './Pagex/Main'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Signin from './components/Authentication/Signin'
 import Signup from './components/Authentication/Signup'

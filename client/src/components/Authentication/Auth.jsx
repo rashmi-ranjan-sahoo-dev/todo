@@ -1,7 +1,8 @@
-import React from 'react'
+
 import { BrowserRouter, Routes, Route, Link,  Outlet } from "react-router-dom";
 
-const Auth = ( { setIsLoggedIn }) => {
+const Auth = () => {
+
   return (
    <div 
    className=" bg-[#e28743] relative sm:top-18 top-17 right-10 sm:left-2  border-black text-black p-4 rounded w-fit mt-10">
@@ -11,7 +12,7 @@ const Auth = ( { setIsLoggedIn }) => {
   </div>
   <div 
   className='hover:bg-gray-600 text-white hover:border-none sm:bg-transparent bg-gray-600 transition-all ease-in-out h-fit w-fit border-1 p-2 ml-12 rounded-xl '>
-    <Link to="/signin" setIsLoggedIn = {setIsLoggedIn}>signin</Link>
+    <Link to="/signin">signin</Link>
   </div>
   <div 
   className="absolute -top-2 sm:left-13 left-26 w-2 h-2 

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaRegMoon } from "react-icons/fa";
 import { FaRegSun } from "react-icons/fa6";
 import { MdManageAccounts } from "react-icons/md";
 import Auth from './Authentication/Auth';
+import { AuthContext } from './Authentication/context/AuthProvider';
 import Logout from './Authentication/logout';
 
 
@@ -10,7 +11,6 @@ const Header = ({ sendDataToApp }) => {
 
    const [isDark,setIsDark] = useState(false);
    const [isActive,setIsActive] = useState(true);
-   const [isLoggedIn,setIsLoggedIn] = useState(true)
 
    function handelData(){
     const updatedvalue = !isDark;
@@ -22,6 +22,8 @@ const Header = ({ sendDataToApp }) => {
    function handelActive(){
     setIsActive(!isActive);
    }
+   const { isLoggedIn} = useContext(AuthContext)
+   console.log(isLoggedIn)
 
   return (
     
@@ -35,9 +37,9 @@ const Header = ({ sendDataToApp }) => {
             className='hover:shadow-lg hover:scale-125 transition-all duration-300 ease-in-out  h-7 w-7 sm:h-10 sm:w-10 flex items-center justify-center text-cyan-500 bg-black rounded-full' 
             onClick={handelData}>{isDark ?<FaRegSun />: <FaRegMoon /> }</button>
             <div onClick={handelActive} className='hover:shadow-lg hover:scale-125 transition-all duration-300 ease-in-out h-7 w-7 sm:h-10 sm:w-10 flex items-center justify-center text-cyan-500 bg-black rounded-full'>
-              {isActive?<MdManageAccounts />:<Auth setIsLoggedIn = {setIsLoggedIn}/>}
+             {isActive ? <MdManageAccounts /> : <Auth />}
             </div>
-            {isLoggedIn && <Logout setIsLoggedIn = {setIsLoggedIn}/>}
+            {isLoggedIn && <Logout/>}
           </div>
     </div>
   )
