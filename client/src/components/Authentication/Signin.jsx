@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const Signin = () => {
+const Signin = ( {setIsLoggedIn} ) => {
 
     const navigate = useNavigate();
     const [email,setEmail] = useState('')
@@ -11,6 +11,7 @@ const Signin = () => {
 
     function redirectUser(){
         navigate("/");
+        setIsLoggedIn(true)
     }
 
     const handelSignin = async (e) =>{

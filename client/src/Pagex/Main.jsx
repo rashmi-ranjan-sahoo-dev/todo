@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { Outlet } from 'react-router-dom'
-import Logout from '../components/Authentication/logout'
-import LoginName from '../components/Authentication/LoginName'
+
+
 
 const Main = () => {
 
@@ -24,8 +24,6 @@ const Main = () => {
     className={isDarkMode ?"min-h-screen   dark:bg-gray-900  transition-all duration-300" : "min-h-screen   bg-white  transition-all duration-300"}>
       <Header sendDataToApp = {recevedData} />
        <Outlet/>
-       <Logout />
-       <LoginName/>
     </div>
   )
 }
