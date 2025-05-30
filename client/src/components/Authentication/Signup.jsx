@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios  from 'axios';
 import { useState } from 'react';
+import { AuthContext } from './context/AuthProvider';
 
 const Signup = () => {
 
@@ -10,6 +11,7 @@ const [email,setEmail] = useState('')
 const [password,setPassword] = useState('')
 const [firstName,setFirstName] = useState('')
 const [lastName,setLastName] = useState('')
+const {setName} = useContext(AuthContext)
 
     function redirectUser(){
         navigate("/");
@@ -27,6 +29,7 @@ const [lastName,setLastName] = useState('')
         })
          if(response.data.msg){
            alert(response.data.msg);
+           setName(firstName)
          }else{
            alert(response.data.error);
          }
