@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, {} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios  from 'axios';
 import { useState } from 'react';
@@ -11,7 +11,6 @@ const [email,setEmail] = useState('')
 const [password,setPassword] = useState('')
 const [firstName,setFirstName] = useState('')
 const [lastName,setLastName] = useState('')
-const {setName} = useContext(AuthContext)
 
     function redirectUser(){
         navigate("/");
@@ -29,7 +28,6 @@ const {setName} = useContext(AuthContext)
         })
          if(response.data.msg){
            alert(response.data.msg);
-           setName(firstName)
          }else{
            alert(response.data.error);
          }

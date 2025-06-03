@@ -1,7 +1,8 @@
-import React, {useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { Outlet } from 'react-router-dom'
 import Body from '../components/Body/Body'
+import { AuthContext } from '../components/Authentication/context/AuthProvider'
 
 
 const Main = () => {
@@ -10,7 +11,7 @@ const Main = () => {
   const recevedData = (receve)=>{
     setIsDarkMode(receve)
   }
-
+  const {isLoggedIn} = useContext(AuthContext);
    useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -23,8 +24,7 @@ const Main = () => {
     <div 
     className={isDarkMode ?"min-h-screen   dark:bg-gray-900  transition-all duration-300" : "min-h-screen   bg-white  transition-all duration-300"}>
       <Header sendDataToApp = {recevedData} />
-       <Outlet/>
-       <Body/>
+      {isLoggedIn ? <Body/> : <Outlet/>}
     </div>
   )
 }

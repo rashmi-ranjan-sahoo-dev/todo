@@ -9,12 +9,7 @@ const Signin = ( ) => {
     const navigate = useNavigate();
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
-    const { setIsLoggedIn } = useContext(AuthContext)
-
-    function redirectUser(){
-        navigate("/");
-        setIsLoggedIn(true)
-    }
+    const { setIsLoggedIn,setName } = useContext(AuthContext)
 
     const handelSignin = async (e) =>{
       e.preventDefault();   
@@ -26,8 +21,10 @@ const Signin = ( ) => {
       })
 
       alert(response.data.msg);
+      setName(response.data.firstName);
       localStorage.setItem("token",response.data.token)
-      console.log(localStorage.getItem("token"))
+       navigate("/");
+        setIsLoggedIn(true)
 
     }catch(error){
       if(error.response){
@@ -64,7 +61,9 @@ const Signin = ( ) => {
           className=' border text-center rounded-2xl sm:p-4 p-2 block w-full sm:text-xl '
           />
           <br />
-          <button onClick={redirectUser} className='w-fit sm:text-xl sm:p-2 p-2 rounded-xl bg-blue-600 shadow-lg mb-2' type='submit'>SignUp</button>
+          <button 
+          className='w-fit sm:text-xl sm:p-2 p-2 rounded-xl bg-blue-600 shadow-lg mb-2' 
+          type='submit'>SignUp</button>
           <p>Don't have an account? <a className='font-bold' href="/signup" >Signup</a></p>
       </form>
     </div>

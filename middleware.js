@@ -4,31 +4,12 @@ const z = require("zod");
 const jwt = require("jsonwebtoken")
 
 async function auth(req,res,next) {
-    
-     const validedData = z.object({
-           email:z.string().min(4).max(40).email(),
-           password:z.string().min(8).regex(/[A-Z]/)
-                                     .regex(/[a-z]/)
-                                     .regex(/[0-9]/)
-                                     .regex(/[^A-Za-z0-9]/,)
-       })
-
-       const parsed = validedData.safeParse(req.body);
-
-        if(!parsed.success){
-         res.json({
-            msg:"incorrect format",
-            error:parsed.error.errors
-        })
-        return
-    }
-      
-       const token = localStorage.getItem("token");
+       const token = req.headers.token
     try{
         const decodedData = jwt.verify(token,process.env.JWT_USER_SECRET)
 
         if(decodedData){
-            req.UserId = decodedData.id;
+            req.userId = decodedData.id;
             next();
         }else{
             res.status(403).json({
@@ -45,6 +26,18 @@ async function auth(req,res,next) {
 
 }
 
+// async function userMiddleWare(req,res,next) {
+//     const token = req.headers.token ;
+
+//     if(!token){
+//         return res.status(401).send({
+//             msg:"token is required"
+//         })
+//     }
+
+//     const userDetails = jwt.ver
+// }
+
 module.exports = {
-    auth:auth
+    auth
 }

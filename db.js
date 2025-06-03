@@ -12,7 +12,8 @@ const userSchema = new Schema({
 const todoSchema = new Schema({
     title:String,
     detail:String,
-    userId:ObjectId
+    userId:ObjectId,
+    isDone:Boolean
 })
 const userModel = mongoose.model("user", userSchema);
 const todoModel = mongoose.model("todos",todoSchema)

@@ -44,8 +44,8 @@ try{
 
    console.log(user)
 
-   res.json({
-    msg:"siginup successful"
+   res.send({
+    msg:"siginup successful",
    })
  }catch(error){
 
@@ -98,7 +98,8 @@ UserRoute.post("/signin",async function(req,res){
 
        return res.status(200).json({
             token,
-            msg:"Signin successful"
+            msg:"Signin successful",
+            firstName:user.firstName
           })
        }else{
         res.status(403).json({
