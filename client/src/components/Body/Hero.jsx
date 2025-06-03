@@ -2,8 +2,13 @@ import React from 'react'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import TaskBoard from './TaskBoard';
+import { useState } from 'react';
+
 
 const Hero = () => {
+
+  const [completed, setCompleted] = useState(0);
+const [pending, setPending] = useState(0);
 
      const today = new Date();
   const weekday = today.toLocaleDateString('en-US', {weekday: 'long'});
@@ -14,11 +19,11 @@ const Hero = () => {
 
   return ( 
       // parent div
-    <div className=' bg-amber-100 grid sm:grid-cols-3 grid-cols-1 ml-15 mr-15'>
+    <div className=' rounded-2xl bg-amber-100 grid sm:grid-cols-3 grid-cols-1 ml-2 sm:ml-15 mr-2 sm:mr-15'>
       {/* child one */}
       <div className=" col-span-1 flex flex-col items-center justify-center ">
-              <div className='p-5 text-4xl italic '>
-                <p className='italic text-cyan-700 text-3xl '>{weekday}</p>
+              <div className='sm:p-5 sm:text-4xl italic '>
+                <p className='italic text-cyan-700 text-xl sm:text-3xl '>{weekday}</p>
                 {date},{month} {year}
               </div>
               <Calendar
@@ -28,17 +33,17 @@ const Hero = () => {
                 {/* active todos */}
                 <div className='md:text-xl text-sm text-center md:h-25 md:w-35 w-24 bg-[#F0D1A8] p-2 rounded-xl' >
                     <p>COMPLETED TASKS</p>
-                    <p>4</p>
+                    <p>{completed}</p>
                 </div>
                 <div className='text-center md:text-xl text-sm md:h-25 md:w-35 w-25 bg-[#C4A49F] p-2 rounded-xl'>
                     <p>PENDING TASKS</p>
-                    <p>5</p>
+                    <p>{pending}</p>
                 </div>
             </div>
             </div>
             {/* child two */}
             <div className='col-span-2'>
-                 <TaskBoard/>
+                 <TaskBoard setCompleted = {setCompleted} setPending = {setPending}/>
             </div>
     </div>
   )

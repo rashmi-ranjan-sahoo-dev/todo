@@ -3,9 +3,7 @@ require('dotenv').config(); // Load .env
 const express = require("express");
 const TodoRoute = express.Router();
 const {z} = require("zod");
-const { error } = require('zod/v4/locales/ar.js');
 const { todoModel } = require("../db");
-const { de } = require('zod/v4/locales');
 const { auth } = require("../middleware")
 
 
@@ -72,10 +70,14 @@ TodoRoute.get("/todos",auth, async function(req,res){
     }
 })
 
-TodoRoute.put("/todo",async function(req,res){
+TodoRoute.put("/todo",auth,async function(req,res){
      const userId = req.userId;
-     const todoId = req.todoId;
-     const {title, detail, isDone } = req.body;
+     const {title, detail, isDone, todoId } = req.body;
+
+     console.log(title);
+     console.log(detail);
+     console.log(isDone);
+     console.log(todoId);
 
     if(!todoId || !title || typeof isDone === "undefined"){
         return res.status(400).json({
@@ -107,9 +109,45 @@ TodoRoute.put("/todo",async function(req,res){
     }
 })
 
+
+TodoRoute.put("/todoToggle",auth,async function(req,res){
+     const userId = req.userId;
+     const { isDone,todoId } = req.body;
+     console.log(todoId);
+
+    if(!todoId || typeof isDone === "undefined"){
+        return res.status(400).json({
+            msg:"missing or invalid data"
+        })
+    }
+
+    try{
+        const todo = await todoModel.findOneAndUpdate(
+            {_id: todoId,userId}, // filter
+            { isDone }, // Update
+            { new: true }// Return update doc
+        );
+        if(!todo){
+            return res.status(404).json({
+                msg: "Todo not found of unauthorized"})
+        }
+
+        res.status(200).json({
+            msg: "todo upDated",
+            todo
+        });
+    } catch(error){
+        console.error("Error updating todo:",error);
+        res.status(500).json({
+            msg:"Internal server errror",
+            error: error.message
+        })
+    }
+})
+
 TodoRoute.delete("/todo",async function(req,res){
      const todoId = req.body.todoId;
-     console.log(todoId);
+    //  console.log(todoId);
 
          if (!todoId) {
         return res.status(400).json({ msg: "Missing todoId" });
